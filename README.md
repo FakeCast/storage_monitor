@@ -47,4 +47,4 @@ Grafana dashboard exported in json format.
 
 
 ## Grafana Dashboard Screenshot 
-[[https://github.com/FakeCast/vmax_monitor/dashboard.PNG|alt=dashboard]]
+![alt text](https://raw.githubusercontent.com/FakeCast/vmax_monitor/master/dashboard.PNG)
