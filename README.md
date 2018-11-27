@@ -42,6 +42,9 @@ The usage of the script is:
 ruby vmax_monitoring.rb <hostname or hostip>
 ```
 
+## dashboard.json
+Grafana dashboard exported in json format.
+
 
 ## Grafana Dashboard Screenshot 
 
