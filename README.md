@@ -48,3 +48,6 @@ Grafana dashboard exported in json format.
 
 ## Grafana Dashboard Screenshot 
 ![alt text](https://raw.githubusercontent.com/FakeCast/vmax_monitor/master/dashboard.PNG)
+![alt text](https://raw.githubusercontent.com/FakeCast/vmax_monitor/master/storagegroup.PNG)
+![alt text](https://raw.githubusercontent.com/FakeCast/vmax_monitor/master/hostmetric.PNG)
+![alt text](https://raw.githubusercontent.com/FakeCast/vmax_monitor/master/end.png)
