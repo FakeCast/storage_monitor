@@ -1,9 +1,9 @@
 require_relative 'vnxgetter.rb'
 require_relative 'influxdb_connection.rb'
-collect_vnx = VnxGetter.new
 
+collect_vnx = VnxGetter.new
 collect_vnx.username =
-collect_vnx.password = 
+collect_vnx.password =
 collect_vnx.scope = 0
 collect_vnx.ip = ARGV[0]
 collect_vnx.nav_path = '/opt/Navisphere/bin'

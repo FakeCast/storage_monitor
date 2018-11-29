@@ -1,5 +1,5 @@
-# Vmax Monitor Toolkit (Ruby)
-Vmax Monitoring using InfluxDB and Grafana
+# Vmax/VNX Monitor Toolkit (Ruby)
+Vmax/VNX Monitoring using InfluxDB and Grafana
 
 InfluxDB Time-Series https://www.influxdata.com/
 
@@ -12,6 +12,29 @@ Grafana for visualization: https://grafana.com/
 ## References
 https://github.com/stevenctong/vmax_monitoring - Used as reference to develop the code in Ruby 
 https://github.com/ciarams87/PyU4V - I got many problems trying to install some python libraries on my Linux machine, so I decided to recode some functions from PyU4V in Ruby.
+
+## RUVNX.rb
+  Script that runs the commands via navseccli on VNX array's to get performance data
+
+## vnx__monitoring.rb
+  File that make the requests, parse data and put in InfluxDB
+  
+  You must initialize a new instance of the VnxGetter class and set the follow attributes:
+  ```
+  collect_vnx = VnxGetter.new
+  collect_vnx.username =
+  collect_vnx.password =
+  collect_vnx.scope = 0
+  collect_vnx.ip = ARGV[0]
+  collect_vnx.nav_path = '/opt/Navisphere/bin' #Path of Navseccli in your system
+  ```
+
+  Usage:
+  ```
+  ruby vnx__monitoring.rb <vnxip>
+  ```
+
+
 
 ## U4V.rb 
   Dell/EMC Have developed a module called PyU4V as a solution to make requests to the Unisphere API, unfortunattely Ruby don't have a gem that can realize the same, so I recoded some functions from PyU4V in Ruby
