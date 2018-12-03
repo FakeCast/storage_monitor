@@ -1,5 +1,5 @@
-# Vmax/VNX Monitor Toolkit (Ruby)
-Vmax/VNX Monitoring using InfluxDB and Grafana
+# EMC Vmax/EMC VNX/ HP 3PAR / Monitor Toolkit (Ruby)
+EMC Vmax/VNX  and HP 3PAR Monitoring using InfluxDB and Grafana
 
 InfluxDB Time-Series https://www.influxdata.com/
 
@@ -14,7 +14,7 @@ https://github.com/stevenctong/vmax_monitoring - Used as reference to develop th
 https://github.com/ciarams87/PyU4V - I got many problems trying to install some python libraries on my Linux machine, so I decided to recode some functions from PyU4V in Ruby.
 
 ## RUVNX.rb
-  Script that runs the commands via navseccli on VNX array's to get performance data
+  Script that run commands via navseccli on VNX array's to get performance data
 
 ## vnx__monitoring.rb
   File that make the requests, parse data and put in InfluxDB
@@ -34,7 +34,28 @@ https://github.com/ciarams87/PyU4V - I got many problems trying to install some 
   ruby vnx__monitoring.rb <vnxip>
   ```
 
+## RU3PAR.rb
+  Script that run commands using the CLI from 3PAR
 
+  First you need to add your public key using the command above:
+  ```
+  setsshkey -add
+  ```
+
+### 3par_monitoring.rb
+  This file make the requests using RU3PAR.rb to each 3Par Array and insert into InfluxDB
+
+  You must initiate a new instance of RU3PAR class and set the follow attributes:
+  ```
+  collect_3par = TriPar.new
+  collect_3par.ip = ARGV[0]
+  collect_3par.username = <3parusername>
+  ```
+
+  Usage:
+  ```
+  ruby 3par_monitoring.rb <3parip>
+  ```
 
 ## U4V.rb 
   Dell/EMC Have developed a module called PyU4V as a solution to make requests to the Unisphere API, unfortunattely Ruby don't have a gem that can realize the same, so I recoded some functions from PyU4V in Ruby
