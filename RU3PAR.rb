@@ -1,9 +1,13 @@
 class TriPar
   require 'net/ssh'
-  attr_accessor :ip, :username
+  attr_accessor :ip, :username, :remote
 
   def pre_command(cmd)
-    Net::SSH.start(@ip, @username ).exec!(cmd)
+    unless @remote.nil?
+      cmd = "ssh 3paradm@#{@remote} #{cmd}"
+      @username = 'root'
+    end
+    Net::SSH.start(@ip, @username).exec!(cmd)
   end
 
   def get_array_name
@@ -42,7 +46,7 @@ class TriPar
       metrics[:io_write] = data[2].to_f
       metrics[:kb_read] = data[4].to_f
       metrics[:kb_write] = data[5].to_f
-      metrics[:busy] = data.last.to_f 
+      metrics[:busy] = data.last.to_f
     else
       metrics = {}
     end

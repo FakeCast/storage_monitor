@@ -4,6 +4,7 @@ require_relative 'influxdb_connection.rb'
 collect_3par = TriPar.new
 collect_3par.ip = ARGV[0]
 collect_3par.username = '3paradm'
+collect_3par.remote = ARGV[1]
 
 @end_date =  Time.now.to_i * 1000
 @start_date = (@end_date - 600000)
@@ -17,7 +18,6 @@ def insert_metrics(measurement_name, metrics, additional_tags = {})
     time = Time.now.to_i * 1000
     values = { key.to_s => value, 'time': time }
     InfluxDatabase.insert(measurement_name, tags, values)
-    puts values
   end
 end
 
