@@ -1,13 +1,13 @@
 class TriPar
   require 'net/ssh'
-  attr_accessor :ip, :username, :remote
+  attr_accessor :ip, :username, :remote, :remote_username
 
   def pre_command(cmd)
-    unless @remote.nil?
-      cmd = "ssh 3paradm@#{@remote} #{cmd}"
-      @username = 'root'
+    if @remote
+      Net::SSH.start(@ip, @remote_username).exec!("ssh #{@username}@#{@remote} #{cmd}")
+    else
+      Net::SSH.start(@ip, @username).exec!(cmd)
     end
-    Net::SSH.start(@ip, @username).exec!(cmd)
   end
 
   def get_array_name

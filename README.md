@@ -45,16 +45,25 @@ https://github.com/ciarams87/PyU4V - I got many problems trying to install some 
 ### 3par_monitoring.rb
   This file make the requests using RU3PAR.rb to each 3Par Array and insert into InfluxDB
 
+  It have a feature where you can collect data from a 3Par connected to another machine in yout network. To make it works you must provide the second argument on the command call and set the "remote_username" param.
+
   You must initiate a new instance of RU3PAR class and set the follow attributes:
   ```
   collect_3par = TriPar.new
   collect_3par.ip = ARGV[0]
   collect_3par.username = <3parusername>
+  collect_3par.remote = ARGV[1]
+  collect_3par.remote_username = <remotemachineusername>
   ```
 
   Usage:
   ```
   ruby 3par_monitoring.rb <3parip>
+  ```
+
+  Or if you are trying to get data from a 3PAR conected to other machine
+  ```
+   ruby 3par_monitoring.rb <remotemachineip> <3parip>
   ```
 
 ## U4V.rb 

@@ -5,6 +5,7 @@ collect_3par = TriPar.new
 collect_3par.ip = ARGV[0]
 collect_3par.username = '3paradm'
 collect_3par.remote = ARGV[1]
+collect_3par.remote_username = 'root'
 
 @end_date =  Time.now.to_i * 1000
 @start_date = (@end_date - 600000)
