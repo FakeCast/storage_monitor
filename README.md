@@ -95,12 +95,19 @@ The usage of the script is:
 ruby vmax_monitoring.rb <hostname or hostip>
 ```
 
-## dashboard.json
+## dashboard*.json
 Grafana dashboard exported in json format.
 
 
 ## Grafana Dashboard Screenshot 
+### VMAX
 ![alt text](https://raw.githubusercontent.com/FakeCast/vmax_monitor/master/dashboard.PNG)
 ![alt text](https://raw.githubusercontent.com/FakeCast/vmax_monitor/master/storagegroup.PNG)
 ![alt text](https://raw.githubusercontent.com/FakeCast/vmax_monitor/master/hostmetric.PNG)
 ![alt text](https://raw.githubusercontent.com/FakeCast/vmax_monitor/master/end.png)
+
+### VNX
+![alt text](https://raw.githubusercontent.com/FakeCast/vmax_monitor/master/vnx_dashboard.png)
+
+### 3PAR
+![alt text](https://raw.githubusercontent.com/FakeCast/vmax_monitor/master/3par_dashboard.png)
