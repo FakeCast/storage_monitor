@@ -1,4 +1,4 @@
-require_relative 'U4V.rb'
+require_relative 'u4v.rb'
 require_relative 'influxdb_connection.rb'
 
 @end_date =  Time.now.to_i * 1000
@@ -15,20 +15,20 @@ def insert_metrics(measurement_name, metrics, array_id, additional_tags = {})
   end
 end
 
-U4V.get_array_list(@host).each do |array|
+U4V.array_list(@host).each do |array|
   array_id = array["symmetrixId"]
-  array_metrics = U4V.get_array_metrics(array_id, @start_date, @end_date, @host)
+  array_metrics = U4V.array_metrics(array_id, @start_date, @end_date, @host)
   insert_metrics('Array', array_metrics, array_id)
 
-  U4V.get_storage_group_list(array_id, @host).each do |storage_group|
+  U4V.storage_group_list(array_id, @host).each do |storage_group|
     sg_id = storage_group["storageGroupId"]
-    storage_group_metrics = U4V.get_storage_group_metrics(array_id, @start_date, @end_date, sg_id, @host)
+    storage_group_metrics = U4V.storage_group_metrics(array_id, @start_date, @end_date, sg_id, @host)
     insert_metrics('Storage Group', storage_group_metrics, array_id, {"Storage Group": sg_id})
   end
 
-  U4V.get_director_list(array_id, @host).each do |director_id|
+  U4V.director_list(array_id, @host).each do |director_id|
     begin
-      director_metrics = U4V.get_director_info(array_id, @start_date, @end_date, director_id, @host)
+      director_metrics = U4V.director_info(array_id, @start_date, @end_date, director_id, @host)
       director_tags = {"Director ID": director_id, "Director Type": director_metrics[:director_type]}
       insert_metrics('Director', director_metrics[:metrics], array_id, director_tags)
     rescue
@@ -37,23 +37,23 @@ U4V.get_array_list(@host).each do |array|
     end
   end
 
-  U4V.get_port_group_list(array_id, @host).each do |port_group|
+  U4V.port_group_list(array_id, @host).each do |port_group|
     port_group_id = port_group["portGroupId"]
-    port_group_metrics = U4V.get_port_group_metrics(array_id, @start_date, @end_date, port_group_id, @host)
+    port_group_metrics = U4V.port_group_metrics(array_id, @start_date, @end_date, port_group_id, @host)
     insert_metrics('Port Group', port_group_metrics, array_id, {"Port Group": port_group_id})
   end
 
-  U4V.get_host_list(array_id, @host).each do |initiator_group_id|
+  U4V.host_list(array_id, @host).each do |initiator_group_id|
     begin
-      ig_metrics = U4V.get_host_metrics(array_id, @start_date, @end_date, initiator_group_id, @host)
+      ig_metrics = U4V.host_metrics(array_id, @start_date, @end_date, initiator_group_id, @host)
     rescue
       ig_metrics = {}
     end
     insert_metrics('Host', ig_metrics, array_id, {"Host": initiator_group_id})
   end
 
-  U4V.get_srp_list(array_id, @host).each do |srp_id|
-    U4V.get_srp_metrics(array_id, @host, srp_id)["srp"].each do |metric|
+  U4V.srp_list(array_id, @host).each do |srp_id|
+    U4V.srp_metrics(array_id, @host, srp_id)["srp"].each do |metric|
       array_free_capacity = metric["total_usable_cap_gb"] - metric["total_allocated_cap_gb"]
       array_free_percent = array_free_capacity / metric["total_usable_cap_gb"]
 
@@ -70,9 +70,9 @@ U4V.get_array_list(@host).each do |array|
 
   alerts_count = Hash.new
   alerts_count = {
-    alerts_critical_fatal: U4V.get_alert('FATAL', @host).count + U4V.get_alert('CRITICAL', @host).count,
-    alerts_minor_warning: U4V.get_alert('WARNING', @host).count + U4V.get_alert('MINOR', @host).count,
-    alerts_information: U4V.get_alert('INFORMATION', @host).count
+    alerts_critical_fatal: U4V.alert('FATAL', @host).count + U4V.alert('CRITICAL', @host).count,
+    alerts_minor_warning: U4V.alert('WARNING', @host).count + U4V.alert('MINOR', @host).count,
+    alerts_information: U4V.alert('INFORMATION', @host).count
   }
   insert_metrics('Alerts', alerts_count, array_id)
 end

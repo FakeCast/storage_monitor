@@ -10,15 +10,15 @@ class TriPar
     end
   end
 
-  def get_array_name
+  def array_name
     pre_command('showsys').split("\n")[2].split(" ")[4].to_s
   end
 
-  def get_port_list
+  def port_list
     pre_command('showport -nohdtot').split("\n").select {|x| x.include? 'FC'}.map! {|x| x.split(' ')[0]}
   end
 
-  def get_volume_metrics
+  def volume_metrics
     metrics = Hash.new
     i = 0
     pre_command('statvlun -nohdtot -iter 1').each_line do |line|
@@ -38,7 +38,7 @@ class TriPar
     metrics
   end
 
-  def get_port_metrics(port)
+  def port_metrics(port)
     metrics = Hash.new
     data = pre_command("srstatport #{port} -port_type host -attime -nohdtot").split("\n").last.split(' ')
     if data.count > 5
@@ -54,7 +54,7 @@ class TriPar
     metrics
   end
 
-  def get_array_capacity(disktype)
+  def array_capacity(disktype)
     metrics = Hash.new
     pre_command("showsys -space -devtype #{disktype}").each_line do |line|
       metrics[:total_usable_cap_gb] = line.split(':').last.strip.to_i / 1024 if line.include? 'Total Capacity'

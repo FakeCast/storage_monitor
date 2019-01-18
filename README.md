@@ -10,15 +10,15 @@ gem install influxdb
 Grafana for visualization: https://grafana.com/
 
 ## References
-https://github.com/stevenctong/vmax_monitoring - Used as reference to develop the code in Ruby 
+https://github.com/stevenctong/vmax_monitoring - Used as reference to develop the code in Ruby
 https://github.com/ciarams87/PyU4V - I got many problems trying to install some python libraries on my Linux machine, so I decided to recode some functions from PyU4V in Ruby.
 
-## RUVNX.rb
+## ruvnx.rb
   Script that run commands via navseccli on VNX array's to get performance data
 
-## vnx__monitoring.rb
+## vnx_monitoring.rb
   File that make the requests, parse data and put in InfluxDB
-  
+
   You must initialize a new instance of the VnxGetter class and set the follow attributes:
   ```
   collect_vnx = VnxGetter.new
@@ -31,7 +31,7 @@ https://github.com/ciarams87/PyU4V - I got many problems trying to install some 
 
   Usage:
   ```
-  ruby vnx__monitoring.rb <vnxip>
+  ruby vnx_monitoring.rb <vnxip>
   ```
 
 ## RU3PAR.rb
@@ -66,12 +66,12 @@ https://github.com/ciarams87/PyU4V - I got many problems trying to install some 
    ruby 3par_monitoring.rb <remotemachineip> <3parip>
   ```
 
-## U4V.rb 
+## U4V.rb
   Dell/EMC Have developed a module called PyU4V as a solution to make requests to the Unisphere API, unfortunattely Ruby don't have a gem that can realize the same, so I recoded some functions from PyU4V in Ruby
-  
+
 ## unisphere_rest.rb (Unisphere API Requester)
-  Used to request the Unisphere Api. 
-  
+  Used to request the Unisphere Api.
+
   Before start, you need to configure the header section that authenticate with Unisphere.
   ```
     @header = {
@@ -81,7 +81,7 @@ https://github.com/ciarams87/PyU4V - I got many problems trying to install some 
   }
 ```
   Replace '%ENCODED AUTHORIZATION%' with your username/password encoded in Base64.
-  
+
 ## influxdb_connection.rb (InfluxDB Configuration)
 Replace the line above with  your DB name (collect), username (admin) and password (admin).
 ```
@@ -99,7 +99,7 @@ ruby vmax_monitoring.rb <hostname or hostip>
 Grafana dashboard exported in json format.
 
 
-## Grafana Dashboard Screenshot 
+## Grafana Dashboard Screenshot
 ### VMAX
 ![alt text](https://raw.githubusercontent.com/FakeCast/vmax_monitor/master/dashboard.PNG)
 ![alt text](https://raw.githubusercontent.com/FakeCast/vmax_monitor/master/storagegroup.PNG)

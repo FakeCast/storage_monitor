@@ -2,72 +2,72 @@ require_relative 'unisphere_rest.rb'
 require 'json'
 class U4V
 
-  def self.get_srp_list(array_id, host)
+  def srp_list(array_id, host)
     payload = { symmetrixId: array_id }
     target_uri = "/sloprovisioning/symmetrix/#{array_id}/srp"
     srp = JSON.parse(UnisphereRest.univmax_get(host, '/univmax/restapi'+ target_uri))["srpId"]
     srp.nil? ? srp = [] : srp
   end
 
-  def self.get_array_list(host)
+  def array_list(host)
     target_uri = "/performance/Array/keys"
     JSON.parse(UnisphereRest.univmax_get(host, '/univmax/restapi'+ target_uri))["arrayInfo"]
   end
 
-  def self.get_host_list(array_id, host)
+  def host_list(array_id, host)
     payload = { symmetrixId: array_id }
     target_uri = "/sloprovisioning/symmetrix/#{array_id}/host"
     hosts = JSON.parse(UnisphereRest.univmax_get(host, '/univmax/restapi'+ target_uri))["hostId"]
     hosts.nil? ? hosts = [] : hosts
   end
 
-  def self.get_storage_group_list(array_id, host)
+  def storage_group_list(array_id, host)
     payload = { symmetrixId: array_id }
     target_uri = '/performance/StorageGroup/keys'
     JSON.parse(UnisphereRest.univmax_post(host, '/univmax/restapi'+ target_uri, payload))['storageGroupInfo']
   end
 
-  def self.get_be_director_list(array_id, host)
+  def be_director_list(array_id, host)
     payload = { symmetrixId: array_id }
     target_uri = '/performance/BEDirector/keys'
     JSON.parse(UnisphereRest.univmax_post(host, '/univmax/restapi'+ target_uri, payload))['beDirectorInfo']
   end
 
-  def self.get_fe_director_list(array_id, host)
+  def fe_director_list(array_id, host)
     payload = { symmetrixId: array_id }
     target_uri = '/performance/FEDirector/keys'
     JSON.parse(UnisphereRest.univmax_post(host, '/univmax/restapi'+ target_uri, payload))['feDirectorInfo']
   end
 
-  def self.get_fe_port_list(array_id, host, director_id)
+  def fe_port_list(array_id, host, director_id)
     payload = { symmetrixId: array_id, directorId: director_id }
     target_uri = '/performance/FEPort/keys'
     JSON.parse(UnisphereRest.univmax_post(host, '/univmax/restapi'+ target_uri, payload))['fePortInfo']
   end
 
-  def self.get_port_group_list(array_id, host)
+  def port_group_list(array_id, host)
     payload = { symmetrixId: array_id }
     target_uri = '/performance/PortGroup/keys'
     JSON.parse(UnisphereRest.univmax_post(host, '/univmax/restapi'+ target_uri, payload))['portGroupInfo']
   end
 
-  def self.get_director_list(array_id, host)
+  def director_list(array_id, host)
     target_uri = "/sloprovisioning/symmetrix/#{array_id}/director"
     director_list = JSON.parse(UnisphereRest.univmax_get(host, '/univmax/restapi'+ target_uri))["directorId"]
     director_list.nil? ? director_list = [] : director_list
   end
 
-  def self.get_srp_metrics(array_id, host, srp_id)
+  def srp_metrics(array_id, host, srp_id)
     target_uri = "/sloprovisioning/symmetrix/#{array_id}/srp/#{srp_id}"
     JSON.parse(UnisphereRest.univmax_get(host, '/univmax/restapi'+ target_uri))
   end
 
-  def self.get_alert(query, host)
+  def alert(query, host)
     target_uri = "/84/system/alert?severity=#{query}"
     JSON.parse(UnisphereRest.univmax_get(host, '/univmax/restapi'+ target_uri))["alertId"]
   end
 
-  def self.get_array_metrics(array_id, start_date, end_date, host)
+  def array_metrics(array_id, start_date, end_date, host)
     payload = {
       startDate: start_date,
       endDate: end_date,
@@ -99,7 +99,7 @@ class U4V
     JSON.parse(UnisphereRest.univmax_post(host, '/univmax/restapi'+ target_uri, payload))['resultList']['result'][0]
   end
 
-  def self.get_host_metrics(array_id, start_date, end_date, initiator_group_id, host)
+  def host_metrics(array_id, start_date, end_date, initiator_group_id, host)
     payload = {
       startDate: start_date,
       endDate: end_date,
@@ -115,7 +115,7 @@ class U4V
     JSON.parse(UnisphereRest.univmax_post(host, '/univmax/restapi'+ target_uri, payload))['resultList']['result'][0]
   end
 
-  def self.get_storage_group_metrics(array_id, start_date, end_date, storage_group_id, host)
+  def storage_group_metrics(array_id, start_date, end_date, storage_group_id, host)
     payload = {
       symmetrixId: array_id,
       endDate: end_date,
@@ -172,7 +172,7 @@ class U4V
     JSON.parse(UnisphereRest.univmax_post(host, '/univmax/restapi'+ target_uri, payload))['resultList']['result'][0]
   end
 
-  def self.get_port_group_metrics(array_id, start_date, end_date, port_group_id, host)
+  def port_group_metrics(array_id, start_date, end_date, port_group_id, host)
     payload = {
       symmetrixId: array_id,
       endDate: end_date,
@@ -188,7 +188,7 @@ class U4V
     JSON.parse(UnisphereRest.univmax_post(host, '/univmax/restapi'+ target_uri, payload))['resultList']['result'][0]
   end
 
-  def self.get_fe_director_metrics(array_id, start_date, end_date, director_id, host)
+  def fe_director_metrics(array_id, start_date, end_date, director_id, host)
     target_uri = '/performance/FEDirector/metrics'
     payload = {
       symmetrixId: array_id,
@@ -216,7 +216,7 @@ class U4V
      JSON.parse(UnisphereRest.univmax_post(host, '/univmax/restapi'+ target_uri, payload))['resultList']['result'][0]
   end
 
-  def self.get_be_director_metrics(array_id, start_date, end_date, director_id, host)
+  def be_director_metrics(array_id, start_date, end_date, director_id, host)
     target_uri = '/performance/BEDirector/metrics'
     payload = {
       symmetrixId: array_id,
@@ -238,7 +238,7 @@ class U4V
     JSON.parse(UnisphereRest.univmax_post(host, '/univmax/restapi'+ target_uri, payload))['resultList']['result'][0]
   end
 
-  def self.get_director_info(array_id, start_date, end_date, director_id, host)
+  def director_info(array_id, start_date, end_date, director_id, host)
     be_director_uri = '/performance/BEDirector/metrics'
     fe_director_uri = '/performance/FEDirector/metrics'
     rdf_director_uri = '/performance/RDFDirector/metrics'
@@ -326,7 +326,7 @@ class U4V
     end
   end
 
-  def self.get_fe_port_metrics(array_id, start_date, end_date, director_id, port_id)
+  def fe_port_metrics(array_id, start_date, end_date, director_id, port_id)
     target_uri = '/performance/FEPort/metrics'
     payload = {
       symmetrixId: array_id,

@@ -1,4 +1,4 @@
-require_relative 'RU3PAR.rb'
+require_relative 'ru3par.rb'
 require_relative 'influxdb_connection.rb'
 
 collect_3par = TriPar.new
@@ -9,7 +9,7 @@ collect_3par.remote_username = 'root'
 
 @end_date =  Time.now.to_i * 1000
 @start_date = (@end_date - 600000)
-@array_id = collect_3par.get_array_name
+@array_id = collect_3par.array_name
 
 def insert_metrics(measurement_name, metrics, additional_tags = {})
   metrics.each do |key, value|
@@ -22,16 +22,16 @@ def insert_metrics(measurement_name, metrics, additional_tags = {})
   end
 end
 
-collect_3par.get_volume_metrics.each do |key, metric|
+collect_3par.volume_metrics.each do |key, metric|
  insert_metrics('Volume', metric, {hostname: metric[:host].to_s, lun_name: metric[:lun_name].to_s} )
 end
 
-collect_3par.get_port_list.each do |port|
- metric = collect_3par.get_port_metrics(port)
+collect_3par.port_list.each do |port|
+ metric = collect_3par.port_metrics(port)
  insert_metrics('Port', metric, {port: port})
 end
 
 ['NL', 'FC', 'SSD'].each do |disktype|
-  metrics = collect_3par.get_array_capacity(disktype)
+  metrics = collect_3par.array_capacity(disktype)
   insert_metrics('Array', metrics, {disktype: disktype})
 end
