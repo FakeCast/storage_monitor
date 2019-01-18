@@ -37,7 +37,7 @@ https://github.com/ciarams87/PyU4V - I got many problems trying to install some 
 ## RU3PAR.rb
   Script that run commands using the CLI from 3PAR
 
-  First you need to add your public key using the command above:
+  First you need to add your public key using the following command :
   ```
   setsshkey -add
   ```
@@ -83,7 +83,7 @@ https://github.com/ciarams87/PyU4V - I got many problems trying to install some 
   Replace '%ENCODED AUTHORIZATION%' with your username/password encoded in Base64.
 
 ## influxdb_connection.rb (InfluxDB Configuration)
-Replace the line above with  your DB name (collect), username (admin) and password (admin).
+Replace the line following with  your DB name (collect), username (admin) and password (admin).
 ```
   influxdb = InfluxDB::Client.new 'collect', username: 'admin', password: 'admin', precision: 's'
 ```
