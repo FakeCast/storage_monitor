@@ -109,4 +109,6 @@ Grafana dashboard exported in json format.
 ### VNX
 ![alt text](https://raw.githubusercontent.com/FakeCast/vmax_monitor/master/vnx_dashboard.png)
 
+### 3PAR
+![alt text](https://raw.githubusercontent.com/FakeCast/vmax_monitor/master/3par_dashboard.png)
 
